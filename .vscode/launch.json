@@ -32,6 +32,12 @@
             "type": "dart",
             "deviceId": "macOS",
         },
+        {
+            "name": "Store Server",
+            "program": "store_server/bin/server.dart",
+            "request": "launch",
+            "type": "dart"
+        },
     ],
     "compounds": [
         {

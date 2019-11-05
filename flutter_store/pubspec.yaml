@@ -28,7 +28,9 @@ dependencies:
   shrine_images: ^1.0.0
 
 dev_dependencies:
+  grinder: ^0.8.3+1
   pedantic: ^1.8.0
+  tuneup: ^0.3.6+1
 
 flutter:
   uses-material-design: true
