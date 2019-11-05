@@ -1,8 +1,5 @@
 name: store_server
 description: A web server built using the shelf package.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: Brett Morgan <brettmorgan@google.com>
 
 environment:
   sdk: '>=2.5.0 <3.0.0'
@@ -11,6 +8,13 @@ dependencies:
   args: ^1.5.0
   logging: ^0.11.3+2
   shelf: ^0.7.5
+  shelf_static: ^0.2.8
+  shrine_images:
+    git:
+      url: https://github.com/domesticmouse/material-components-flutter-codelabs-packages
+      path: shrine_images/
 
 dev_dependencies:
+  grinder: ^0.8.3+1
   pedantic: ^1.8.0
+  tuneup: ^0.3.6+1

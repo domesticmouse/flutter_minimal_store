@@ -25,7 +25,10 @@ dependencies:
     sdk: flutter
   intl: ^0.15.8
   provider: ^3.0.0+1
-  shrine_images: ^1.0.0
+  shrine_images:
+    git:
+      url: https://github.com/domesticmouse/material-components-flutter-codelabs-packages
+      path: shrine_images/
 
 dev_dependencies:
   grinder: ^0.8.3+1

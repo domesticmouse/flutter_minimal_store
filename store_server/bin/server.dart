@@ -4,17 +4,18 @@ import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
+import 'package:shelf_static/shelf_static.dart';
 
 final _hostname = InternetAddress.anyIPv4;
 
 Future<void> main(List<String> args) async {
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen(( rec) {
+  Logger.root.onRecord.listen((rec) {
     // ignore: avoid_print
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 
-  final log =  Logger('main');
+  final log = Logger('main');
   final parser = ArgParser()..addOption('port', abbr: 'p');
   final result = parser.parse(args);
 
@@ -29,13 +30,13 @@ Future<void> main(List<String> args) async {
     return;
   }
 
+  final staticHandler = createStaticHandler('../flutter_store/build/web/',
+      defaultDocument: 'index.html');
+
   final handler = const shelf.Pipeline()
       .addMiddleware(shelf.logRequests())
-      .addHandler(_echoRequest);
+      .addHandler(staticHandler);
 
   final server = await io.serve(handler, _hostname, port);
   log.info('Serving at http://${server.address.host}:${server.port}');
 }
-
-shelf.Response _echoRequest(shelf.Request request) =>
-    shelf.Response.ok('Request for "${request.url}"');
