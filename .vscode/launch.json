@@ -6,31 +6,31 @@
     "configurations": [
         {
             "name": "Flutter on Android",
-            "program": "lib/main.dart",
+            "program": "flutter_store/lib/main.dart",
             "request": "launch",
             "type": "dart",
-            "deviceId": "Android"
+            "deviceId": "Android",
         },
         {
             "name": "Flutter on iPhone",
-            "program": "lib/main.dart",
+            "program": "flutter_store/lib/main.dart",
             "request": "launch",
             "type": "dart",
-            "deviceId": "iPhone"
-        },
-        {
-            "name": "Flutter on macOS",
-            "program": "lib/main.dart",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "macOS"
+            "deviceId": "iPhone",
         },
         {
             "name": "Flutter on Chrome",
-            "program": "lib/main.dart",
+            "program": "flutter_store/lib/main.dart",
             "request": "launch",
             "type": "dart",
-            "deviceId": "Chrome"
+            "deviceId": "Chrome",
+        },
+        {
+            "name": "Flutter on macOS",
+            "program": "flutter_store/lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "macOS",
         },
     ],
     "compounds": [
@@ -40,7 +40,7 @@
                 "Flutter on Android",
                 "Flutter on iPhone",
                 "Flutter on Chrome",
-                "Flutter on macOS"
+                "Flutter on macOS",
             ]
         }
     ]
