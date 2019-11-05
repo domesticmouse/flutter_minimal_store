@@ -17,8 +17,8 @@ description: A Flutter store app in Material.
 version: 1.0.0+1
 
 environment:
-  sdk: ^2.4.0
-  flutter: ^1.7.0
+  sdk: ^2.6.0-dev
+  flutter: ^1.10.15-pre
 
 dependencies:
   flutter:

@@ -12,14 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
+import 'package:flutter/foundation.dart'
+    show kIsWeb, debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
-import 'package:flutter_store/model/product.dart';
-import 'package:flutter_store/model/app_state_model.dart';
-import 'package:flutter_store/styles.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'model/app_state_model.dart';
+import 'model/product.dart';
+import 'styles.dart';
+
 void main() {
+  if (!kIsWeb && Platform.isMacOS) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+  }
+
   runApp(
     ChangeNotifierProvider<AppStateModel>(
       builder: (context) => AppStateModel()..loadProducts(),
@@ -35,7 +44,9 @@ class ShoppingApp extends StatelessWidget {
       title: 'Material Store',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        scaffoldBackgroundColor: Colors.white,
+        canvasColor: Colors.white,
+        dividerColor: Colors.black.withOpacity(0.2),
       ),
       home: const HomePage(title: 'Material Store'),
     );
@@ -68,7 +79,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle().copyWith(color: Colors.black),
+        ),
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+        elevation: 0,
         actions: [
           IconButton(
             icon: Icon(Icons.search),
@@ -80,6 +97,12 @@ class _HomePageState extends State<HomePage> {
             },
           )
         ],
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(
+            height: 1,
+          ),
+        ),
       ),
       body: SafeArea(
         child: IndexedStack(
@@ -90,15 +113,24 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _navBarItems,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.pink,
-        onTap: (selectedIndex) {
-          setState(() {
-            _selectedIndex = selectedIndex;
-          });
-        },
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Divider(
+            height: 1,
+          ),
+          BottomNavigationBar(
+            items: _navBarItems,
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.pink,
+            elevation: 0,
+            onTap: (selectedIndex) {
+              setState(() {
+                _selectedIndex = selectedIndex;
+              });
+            },
+          ),
+        ],
       ),
     );
   }
@@ -127,9 +159,28 @@ class ProductList extends StatelessWidget {
     return ListView.builder(
       itemCount: products.length,
       itemBuilder: (context, index) {
-        return ProductItem(
-          product: products[index],
-          last: index == products.length - 1,
+        final first = index == 0;
+        final last = index == products.length - 1;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (first)
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
+              ),
+            ProductItem(
+              product: products[index],
+            ),
+            if (!last)
+              const Padding(
+                padding: EdgeInsets.only(top: 8, bottom: 8),
+                child: Divider(height: 1, indent: 16),
+              ),
+            if (last)
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
+              ),
+          ],
         );
       },
     );
@@ -139,19 +190,15 @@ class ProductList extends StatelessWidget {
 class ProductItem extends StatelessWidget {
   const ProductItem({
     @required this.product,
-    @required this.last,
   });
 
   final Product product;
-  final bool last;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 16,
-        top: 16,
-        bottom: last ? 16 : 0,
         right: 8,
       ),
       child: Row(
