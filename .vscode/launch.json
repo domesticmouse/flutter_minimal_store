@@ -5,9 +5,43 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter",
+            "name": "Flutter on Android",
+            "program": "lib/main.dart",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "deviceId": "Android"
+        },
+        {
+            "name": "Flutter on iPhone",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "iPhone"
+        },
+        {
+            "name": "Flutter on macOS",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "macOS"
+        },
+        {
+            "name": "Flutter on Chrome",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "Chrome"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "All the Things!",
+            "configurations": [
+                "Flutter on Android",
+                "Flutter on iPhone",
+                "Flutter on Chrome",
+                "Flutter on macOS"
+            ]
         }
     ]
 }
