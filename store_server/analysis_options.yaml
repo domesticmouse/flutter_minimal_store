@@ -14,6 +14,13 @@
 
 include: package:pedantic/analysis_options.yaml
 
+analyzer:
+  strong-mode:
+    implicit-casts: false
+  exclude:
+    - 'lib/**/*.g.dart'
+
+
 # For information on lints, please see https://dart-lang.github.io/linter/lints/
 linter:
   rules:
@@ -25,7 +32,7 @@ linter:
     # - always_specify_types
     - annotate_overrides
     - avoid_annotating_with_dynamic
-    - avoid_as
+    # - avoid_as
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catches_without_on_clauses
     - avoid_catching_errors

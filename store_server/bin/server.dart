@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_static/shelf_static.dart';
+import 'package:store_server/store_server.dart';
 
 final _hostname = InternetAddress.anyIPv4;
 
@@ -20,7 +21,8 @@ Future<void> main(List<String> args) async {
   final result = parser.parse(args);
 
   // For Google Cloud Run, we respect the PORT environment variable
-  final portStr = result['port'] ?? Platform.environment['PORT'] ?? '8080';
+  final portStr =
+      result['port'] as String ?? Platform.environment['PORT'] ?? '8080';
   final port = int.tryParse(portStr);
 
   if (port == null) {
@@ -35,7 +37,7 @@ Future<void> main(List<String> args) async {
 
   final handler = const shelf.Pipeline()
       .addMiddleware(shelf.logRequests())
-      .addHandler(staticHandler);
+      .addHandler(ImageService(staticHandler).router.handler);
 
   final server = await io.serve(handler, _hostname, port);
   log.info('Serving at http://${server.address.host}:${server.port}');

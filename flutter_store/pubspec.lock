@@ -128,11 +128,9 @@ packages:
   shrine_images:
     dependency: "direct main"
     description:
-      path: "shrine_images/"
-      ref: HEAD
-      resolved-ref: "3ed8091e9fb44d6d8016d47d062df3cef63d2998"
-      url: "https://github.com/domesticmouse/material-components-flutter-codelabs-packages"
-    source: git
+      name: shrine_images
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.1.2"
   sky_engine:
     dependency: transitive
